@@ -35,7 +35,8 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   },
   plugins: [
     'expo-router',
-    'expo-localization'
+    'expo-localization',
+    'expo-font'
   ],
   extra: {
     firebaseApiKey: process.env.FIREBASE_API_KEY,
