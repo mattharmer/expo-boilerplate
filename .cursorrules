@@ -1,0 +1,105 @@
+You are an expert in TypeScript, React Native, Expo, and Cross-Platform Mobile & Web Development.
+
+Keep existing functionality. Check code carefully and provide concise changes and feedback. Do not remove required code.
+
+Code Style and Structure
+- Write concise, technical TypeScript code with accurate examples.
+- Use functional and declarative programming patterns; avoid classes.
+- Prefer iteration and modularization over code duplication.
+- Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError).
+- Structure files: exported component, subcomponents, helpers, static content, types.
+- Follow Expo's official documentation for setting up and configuring projects: https://docs.expo.dev/
+
+Naming Conventions
+- Use lowercase with dashes for directories (e.g., components/auth-wizard).
+- Favor named exports for components.
+
+TypeScript Usage
+- Use TypeScript for all code; prefer interfaces over types.
+- Enable strict mode in tsconfig.json for better type safety.
+- Avoid enums; use maps or literal types instead.
+- Use functional components with TypeScript interfaces.
+- Use React Hooks effectively (e.g., useState, useEffect, useContext).
+
+Syntax and Formatting
+- Use the "function" keyword for pure functions.
+- Avoid unnecessary curly braces in conditionals; use concise syntax for simple statements.
+- Use declarative JSX.
+- Use Prettier for consistent code formatting.
+- Integrate ESLint for code linting.
+
+UI and Styling
+- Use Expo's built-in components for common UI patterns and layouts.
+- Implement responsive design with Flexbox and Expo's useWindowDimensions for screen size adjustments.
+- Use Tailwind CSS configured with tailwindcss-expo for consistent styling across web and mobile.
+- Implement theming support to support dark mode and custom themes using Expo's useColorScheme.
+- Ensure high accessibility (a11y) standards using ARIA roles and native accessibility props.
+- Leverage react-native-reanimated and react-native-gesture-handler for performant animations and gestures.
+- Use expo-image for advanced image loading and caching capabilities.
+
+Safe Area Management
+- Use SafeAreaProvider from react-native-safe-area-context to manage safe areas globally.
+- Wrap top-level components with SafeAreaView to handle notches, status bars, and screen insets.
+- Use SafeAreaScrollView for scrollable content to respect safe area boundaries.
+- Avoid hardcoding padding or margins for safe areas; rely on SafeAreaView and context hooks.
+
+Performance Optimization
+- Implement code splitting and lazy loading for non-critical components with React's Suspense and dynamic imports.
+- Utilize Expo Router for efficient bundle management.
+- Minimize the use of useState and useEffect; prefer context and reducers for state management.
+- Optimize images: use WebP format where supported, include size data, implement lazy loading with expo-image.
+- Profile and monitor performance using React Native's built-in tools and Expo's debugging features.
+- Avoid unnecessary re-renders by memoizing components and using useMemo and useCallback hooks appropriately.
+
+Navigation
+- Use Expo Router v4 for routing and navigation; follow its best practices.
+- Leverage deep linking configured for navigation across platforms.
+- Use dynamic routes with Expo Router for better navigation handling.
+
+State Management
+- Use React Context API for managing UI state or transient data that doesn't require persistence.
+- Utilize Firebase for persistent data storage and offline sync.
+- Handle URL search parameters using libraries like expo-linking.
+
+Error Handling and Validation
+- Use Zod for runtime validation and error handling.
+- Implement proper error logging using Sentry.
+- Prioritize error handling and edge cases:
+ - Handle errors at the beginning of functions.
+ - Use early returns for error conditions to avoid deeply nested if statements.
+ - Avoid unnecessary else statements; use if-return pattern instead.
+ - Implement global error boundaries to catch and handle unexpected errors.
+- Use expo-error-reporter for logging and reporting errors in production.
+
+Testing
+- Write unit tests using Jest and React Native Testing Library.
+- Implement integration tests for critical user flows.
+- Use Expo's testing tools for running tests in different environments.
+- Consider snapshot testing for components to ensure UI consistency.
+
+Security
+- Sanitize user inputs to prevent XSS attacks.
+- Use expo-secure-store for secure storage of sensitive data.
+- Ensure secure communication with APIs using HTTPS and proper authentication.
+- Use Firebase Security Rules applied to Firestore and Storage for data protection.
+- Ensure compliance with data protection regulations like GDPR and CCPA.
+
+Internationalization (i18n)
+- Use i18next or react-i18next for translation management.
+- Support multiple languages and RTL layouts.
+- Use Intl API or date-fns-tz for locale-aware date, time, and number formatting.
+- Ensure text scaling and font adjustments for accessibility.
+
+Key Conventions
+1. Rely on Expo's managed workflow for streamlined development and deployment.
+2. Prioritize Mobile Web Vitals (Load Time, Jank, and Responsiveness).
+3. Use expo-constants for managing environment variables and configuration.
+4. Use expo-permissions to handle device permissions gracefully.
+5. Implement expo-updates for over-the-air (OTA) updates.
+6. Follow Expo's best practices for app deployment and publishing: https://docs.expo.dev/distribution/introduction/
+7. Ensure compatibility with iOS, Android, and Web by testing extensively on all platforms.
+
+API Documentation
+- Use Expo's official documentation for setting up and configuring projects: https://docs.expo.dev/
+
+Refer to Expo's documentation for detailed information on Views, Blueprints, and Extensions for best practices.
