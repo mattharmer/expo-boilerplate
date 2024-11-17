@@ -92,6 +92,8 @@ fi
 # Initialize Git repository before installing dependencies
 print_blue "Initializing Git repository..."
 git init
+git add .
+git commit -m "Initial commit: Project setup"
 
 print_blue "Installing dependencies... This might take a few minutes."
 
@@ -101,6 +103,12 @@ exec > >(tee -i "$log_file") 2>&1
 
 # Install dependencies with detailed logging
 npm install --progress --loglevel verbose
+
+# Run npm audit fix to address vulnerabilities, logging output
+npm audit fix
+
+# Run npm audit to display any remaining vulnerabilities, logging output
+npm audit
 
 # Install Expo modules using npx (local CLI)
 print_blue "Installing Expo modules..."
@@ -120,10 +128,6 @@ npx expo install \
   react-native-screens \
   react-native-safe-area-context \
   @react-native-async-storage/async-storage
-
-# Run Husky install
-print_blue "Setting up Husky..."
-npm run prepare
 
 print_green "Project created and dependencies installed successfully at $project_path"
 print_blue "Next steps:"
