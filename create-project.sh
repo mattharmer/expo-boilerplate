@@ -13,6 +13,12 @@ print_red() {
     printf "\e[31m%s\e[0m\n" "$1"
 }
 
+# At the start of the script, after the color functions
+LOG_FILE="create-project-$(date +%Y%m%d_%H%M%S).log"
+exec 1> >(tee -a "$LOG_FILE") 2>&1
+
+print_blue "Logging output to $LOG_FILE"
+
 # Get project name if not provided
 if [ -z "$1" ]; then
     read -p "Enter project name: " project_name
@@ -56,6 +62,21 @@ files_to_copy=(
     ".env.example"
     ".gitignore"
     ".npmrc"
+    "src/navigation"
+    "src/hooks"
+    "src/components"
+    "src/sw.js"
+    "src/context"
+    "src/services"
+    "src/styles"
+    "src/utils"
+    "src/assets"
+    "src/assets/images"
+    "src/assets/fonts"
+    "src/i18n"
+    "src/i18n/translations"
+    "src/schemas"
+    "jest.config.js"
 )
 
 # Copy each file/directory
@@ -89,25 +110,62 @@ else
     print_green "Node.js version $(node -v) is compatible."
 fi
 
-# Initialize Git repository before installing dependencies
-print_blue "Initializing Git repository..."
-git init
-git add .
-git commit -m "Initial commit: Project setup"
-
 print_blue "Installing dependencies... This might take a few minutes."
 
 # Save terminal output to a log file
 log_file="install.log"
 exec > >(tee -i "$log_file") 2>&1
 
-# Install dependencies with detailed logging
+# Install dependencies with verbose logging
 npm install --progress --loglevel verbose
 
-# Run npm audit fix to address vulnerabilities, logging output
+# Install expo-env-info globally to ensure it's available for type generation
+print_blue "Installing expo-env-info..."
+npm install -g expo-env-info
+
+# Install additional dependencies
+print_blue "Installing additional dependencies..."
+npm install --save \
+  date-fns \
+  date-fns-tz \
+  @react-navigation/bottom-tabs \
+  @react-navigation/native-stack \
+  react-native-svg \
+  babel-plugin-module-resolver \
+  zod \
+  @testing-library/react-native \
+  sharp
+
+npm install --save-dev \
+  @types/date-fns \
+  postcss-loader \
+  @types/testing-library__react-native \
+  @types/sharp \
+  @testing-library/jest-native \
+  @types/expo \
+  @types/expo-router \
+  @types/react-native-firebase \
+  @types/firebase \
+  @types/react-navigation \
+  @types/expo-constants \
+  @types/expo-linking \
+  @types/expo-localization \
+  @types/expo-secure-store \
+  @types/expo-splash-screen \
+  @types/expo-status-bar \
+  @types/expo-web-browser \
+  @types/react-native-purchases \
+  @types/react-native-svg
+
+# Create necessary directories and generate types
+print_blue "Setting up TypeScript types..."
+mkdir -p .expo/types
+expo-env-info
+
+# Run npm audit fix to address vulnerabilities without breaking changes
 npm audit fix
 
-# Run npm audit to display any remaining vulnerabilities, logging output
+# Run npm audit to display any remaining vulnerabilities
 npm audit
 
 # Install Expo modules using npx (local CLI)
@@ -129,8 +187,60 @@ npx expo install \
   react-native-safe-area-context \
   @react-native-async-storage/async-storage
 
+# Create necessary directories
+print_blue "Setting up project structure..."
+mkdir -p .expo/types
+mkdir -p src/types
+
+# Create expo-env.d.ts file
+print_blue "Creating type declaration files..."
+cat > src/types/expo-env.d.ts << 'EOF'
+/// <reference types="expo/types"/>
+/// <reference types="@react-native-async-storage/async-storage"/>
+/// <reference types="expo-constants"/>
+
+declare module "*.png";
+declare module "*.jpg";
+declare module "*.jpeg";
+declare module "*.gif";
+declare module "*.bmp";
+declare module "*.tiff";
+EOF
+
+# Generate Expo types
+print_blue "Setting up TypeScript types..."
+mkdir -p .expo/types
+npx expo-env-info
+
+# Generate Expo Router types
+print_blue "Generating Expo Router types..."
+npx expo customize tsconfig.json
+
+# Install additional type definitions
+print_blue "Installing additional type definitions..."
+npm install --save-dev \
+  @types/react \
+  @types/react-native \
+  @types/node \
+  @types/jest \
+  @types/date-fns \
+  @types/expo \
+  @types/expo-router \
+  @types/i18next \
+  @types/react-i18next
+
+# Run TypeScript check
+print_blue "Running TypeScript check..."
+npm run ts:check
+
+# Initialize Git repository
+print_blue "Initializing Git repository..."
+git init
+git add .
+git commit -m "Initial commit: Project setup"
+
 print_green "Project created and dependencies installed successfully at $project_path"
 print_blue "Next steps:"
 echo "1. Update .env with your configuration values"
-echo "2. Update app.config.ts with your app details"
-echo "3. Run 'npx expo start' to begin development" 
+echo "2. Update app.config.ts with your app details (if not already done)"
+echo "3. Run 'npx expo start' to begin development"

@@ -5,6 +5,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { ThemeProvider } from './context/ThemeContext';
 import { AuthProvider } from './context/AuthContext';
+import type { ReactNode } from 'react';
 
 // Keep the splash screen visible while we fetch resources
 SplashScreen.preventAutoHideAsync();
@@ -14,7 +15,11 @@ LogBox.ignoreLogs([
   'You are not currently signed in to Expo on your development machine',
 ]);
 
-export default function App() {
+interface AppProps {
+  children: ReactNode;
+}
+
+export default function App({ children }: AppProps) {
   const [fontsLoaded] = useFonts({
     // Add your custom fonts here
   });
@@ -33,7 +38,7 @@ export default function App() {
     <SafeAreaProvider>
       <ThemeProvider>
         <AuthProvider>
-          {/* Your app content */}
+          {children}
         </AuthProvider>
       </ThemeProvider>
     </SafeAreaProvider>

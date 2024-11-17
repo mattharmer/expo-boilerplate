@@ -6,5 +6,6 @@ export function initializeSentry() {
     dsn: Constants.expoConfig?.extra?.sentryDsn,
     enableAutoSessionTracking: true,
     debug: __DEV__,
+    environment: __DEV__ ? 'development' : 'production',
   });
 } 

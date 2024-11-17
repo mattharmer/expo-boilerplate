@@ -18,7 +18,23 @@
       "node",
       "jest",
       "react",
-      "react-native"
+      "react-native",
+      "@react-native-async-storage/async-storage",
+      "expo-constants",
+      "expo",
+      "expo-router",
+      "i18next",
+      "react-i18next",
+      "nativewind/types",
+      "firebase",
+      "expo-linking",
+      "expo-localization",
+      "expo-secure-store",
+      "expo-splash-screen",
+      "expo-status-bar",
+      "expo-web-browser",
+      "react-native-purchases",
+      "react-native-svg"
     ]
   },
   "include": [

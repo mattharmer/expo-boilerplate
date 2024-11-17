@@ -1,22 +1,21 @@
 import analytics from '@react-native-firebase/analytics';
-import * as Sentry from '@sentry/react-native';
 
-export const Analytics = {
-  logEvent: async (name: string, params?: Record<string, any>) => {
+export class Analytics {
+  static async logEvent(name: string, params?: Record<string, any>) {
     try {
       await analytics().logEvent(name, params);
     } catch (error) {
-      Sentry.captureException(error);
+      console.error('Analytics error:', error);
     }
-  },
+  }
 
-  setUserProperties: async (properties: Record<string, any>) => {
+  static async setUserProperties(properties: Record<string, any>) {
     try {
-      Object.entries(properties).forEach(([key, value]) => {
-        analytics().setUserProperty(key, value);
+      Object.entries(properties).forEach(async ([key, value]) => {
+        await analytics().setUserProperty(key, value);
       });
     } catch (error) {
-      Sentry.captureException(error);
+      console.error('Analytics error:', error);
     }
-  },
-}; 
+  }
+} 

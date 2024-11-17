@@ -7,8 +7,13 @@ export const SCREEN = {
   HEIGHT: height,
 };
 
-export const STORAGE_KEYS = {
-  AUTH_TOKEN: '@auth_token',
-  USER_DATA: '@user_data',
-  LANGUAGE: '@language',
+export const APP_CONSTANTS = {
+  API_URL: process.env.API_URL || 'https://api.yourapp.com',
+  APP_ENV: process.env.APP_ENV || 'development',
+  STORAGE_KEYS: {
+    AUTH_TOKEN: 'auth_token',
+    USER_DATA: 'user_data',
+    THEME: 'theme',
+    LANGUAGE: 'language',
+  },
 }; 

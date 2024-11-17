@@ -15,4 +15,17 @@ export interface Theme {
     border: string;
     notification: string;
   };
+}
+
+export * from './navigation';
+export * from './theme';
+export * from './env';
+
+// Add missing React types
+declare global {
+  namespace React {
+    interface ErrorInfo {
+      componentStack: string;
+    }
+  }
 } 

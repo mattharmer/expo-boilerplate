@@ -14,5 +14,9 @@
         "project": "./tsconfig.json"
       }
     }
-  ]
+  ],
+  "rules": {
+    "import/order": "error",
+    "@typescript-eslint/no-unused-vars": "error"
+  }
 }

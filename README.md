@@ -1,5 +1,11 @@
 ## BoilerPlate Installation
 
+Develop and test the boilerplate using setup-dev.sh
+chmod +x scripts/setup-dev.sh
+# From the root of your boilerplate project
+npm run setup
+
+Once the boilerplate is ready, use create-project.sh to create new projects from it
 ./create-project.sh test-expo-app
 
 After running users need to:

@@ -31,7 +31,17 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     package: 'com.yourcompany.expoboilerplate'
   },
   web: {
-    favicon: './src/assets/images/favicon.png'
+    favicon: './src/assets/images/favicon.png',
+    bundler: 'metro',
+    output: 'static',
+    name: 'ExpoBoilerplate',
+    themeColor: '#ffffff',
+    backgroundColor: '#ffffff',
+    startUrl: '/',
+    display: 'standalone',
+    orientation: 'portrait',
+    scope: '/',
+    shortName: 'ExpoBoilerplate'
   },
   plugins: [
     'expo-router',

@@ -10,15 +10,15 @@ Web
 
 ## Technology Stack
 - Development Environment: Cursor
-- Node.js: v18.x
-npm: v9.x
+- Node.js
+npm:
 - Git: For Version Control
-- TypeScript: v5.x
+- TypeScript
 - Expo: SDK 52
 - Expo Router v4
 Expo Go for testing
-- React: v18.x
-- React Native: Included with Expo SDK 50
+- React
+- React Native: Included with Expo SDK 52
 - Firebase: For backend functions
 - Firestore
 Authentication

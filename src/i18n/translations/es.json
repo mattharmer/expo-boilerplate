@@ -2,13 +2,15 @@
   "common": {
     "loading": "Cargando...",
     "error": "Error",
-    "success": "Éxito"
+    "retry": "Reintentar",
+    "cancel": "Cancelar",
+    "save": "Guardar"
   },
   "auth": {
     "signIn": "Iniciar Sesión",
     "signOut": "Cerrar Sesión",
-    "register": "Registrarse",
-    "email": "Correo electrónico",
+    "signUp": "Registrarse",
+    "email": "Correo",
     "password": "Contraseña"
   }
 } 
