@@ -15,12 +15,11 @@
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "types": [
+      "node",
+      "jest",
       "react",
-      "react-native",
-      "jest"
-    ],
-    "allowJs": true,
-    "isolatedModules": true
+      "react-native"
+    ]
   },
   "include": [
     "**/*.ts",

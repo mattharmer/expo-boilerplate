@@ -1,12 +1,8 @@
 ## BoilerPlate Installation
 
-chmod +x create-project.sh
-sudo ./create-project.sh
+./create-project.sh test-expo-app
 
-The create-project.sh run the install.sh script
-The install.sh script will handle project-specific configuration files
-
-After running install.sh, users need to:
+After running users need to:
 
 1. Configure Firebase:
    - Create a Firebase project

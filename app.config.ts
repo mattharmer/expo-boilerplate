@@ -2,8 +2,8 @@ import { ExpoConfig, ConfigContext } from 'expo/config';
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
-  name: 'YourAppName',
-  slug: 'your-app-slug',
+  name: 'ExpoBoilerplate',
+  slug: 'expo-boilerplate',
   version: '1.0.0',
   orientation: 'portrait',
   icon: './src/assets/images/icon.png',
@@ -17,31 +17,25 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     fallbackToCacheTimeout: 0
   },
   assetBundlePatterns: [
-    '**/*'
+    "**/*"
   ],
   ios: {
     supportsTablet: true,
-    bundleIdentifier: 'com.yourcompany.yourapp'
+    bundleIdentifier: 'com.yourcompany.expoboilerplate'
   },
   android: {
     adaptiveIcon: {
       foregroundImage: './src/assets/images/adaptive-icon.png',
       backgroundColor: '#FFFFFF'
     },
-    package: 'com.yourcompany.yourapp'
+    package: 'com.yourcompany.expoboilerplate'
   },
   web: {
     favicon: './src/assets/images/favicon.png'
   },
   plugins: [
     'expo-router',
-    'expo-localization',
-    [
-      'expo-image',
-      {
-        photosPermission: 'Allow $(PRODUCT_NAME) to access your photos.'
-      }
-    ]
+    'expo-localization'
   ],
   extra: {
     firebaseApiKey: process.env.FIREBASE_API_KEY,
@@ -54,5 +48,5 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     sentryDsn: process.env.SENTRY_DSN,
     revenueCatApiKey: process.env.REVENUECAT_API_KEY,
     webPushPublicKey: process.env.WEB_PUSH_PUBLIC_KEY,
-  },
+  }
 }); 
