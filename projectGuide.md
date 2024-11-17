@@ -14,11 +14,11 @@ Web
 npm: v9.x
 - Git: For Version Control
 - TypeScript: v5.x
-- Expo: SDK 52
+- Expo: SDK 50
 - Expo Router v4
 Expo Go for testing
 - React: v18.x
-- React Native: Included with Expo SDK 52
+- React Native: Included with Expo SDK 50
 - Firebase: For backend functions
 - Firestore
 Authentication
@@ -187,10 +187,3 @@ Follow coding standards and use pre-commit hooks for maintaining code quality.
 Run scripts before commits, pushes, or other Git actions
 Prevent bad commits or pushes that might break your codebase
 
-## BoilerPlate Installation
-
-chmod +x create-project.sh
-sudo ./create-project.sh
-
-The create-project.sh run the install.sh script
-The install.sh script will handle project-specific configuration files
