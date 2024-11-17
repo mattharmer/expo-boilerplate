@@ -10,7 +10,7 @@ export async function setItem(key: string, value: any): Promise<void> {
 
 export async function getItem<T>(key: string): Promise<T | null> {
   try {
-    const value = await AsyncStorage.setItem(key);
+    const value = await AsyncStorage.getItem(key);
     return value ? JSON.parse(value) : null;
   } catch (error) {
     console.error('Error reading data', error);

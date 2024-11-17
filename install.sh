@@ -22,7 +22,7 @@ if ! command -v node &> /dev/null; then
     # Detect OS
     if [[ "$OSTYPE" == "linux-gnu"* ]]; then
         # Ubuntu/Debian
-        curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+        curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
         sudo apt-get update
         sudo apt-get install -y nodejs
     elif [[ "$OSTYPE" == "darwin"* ]]; then
@@ -58,9 +58,14 @@ FIREBASE_MESSAGING_SENDER_ID=
 FIREBASE_APP_ID=
 FIREBASE_MEASUREMENT_ID=" > .env
 
+# Add this after creating .env file
+echo "legacy-peer-deps=true
+engine-strict=true
+save-exact=true" > .npmrc
+
 # Install dependencies
 print_blue "Installing dependencies..."
-npm install --progress --loglevel verbose
+npm install --progress --loglevel verbose --legacy-peer-deps
 
 # Create basic ESLint configuration
 echo '{

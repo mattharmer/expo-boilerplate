@@ -14,7 +14,7 @@ Web
 npm: v9.x
 - Git: For Version Control
 - TypeScript: v5.x
-- Expo: SDK 50
+- Expo: SDK 52
 - Expo Router v4
 Expo Go for testing
 - React: v18.x
@@ -88,11 +88,17 @@ Firebase: Handles persistent data storage and offline sync.
 
 ## UI & Styling
 
-### Tailwind CSS
-Configured to work with both web and React Native (using tailwindcss-expo).
+### NativeWind
+- Uses NativeWind for consistent styling across platforms
+- Translates Tailwind CSS classes into React Native styles
+- Configured with tailwind.config.js for customization
+- Requires styled components wrapper for React Native components
+- Global styles defined in src/styles/global.css
 
 ### Theming Support
-Implement a theming system to support dark mode and custom themes, enhancing user experience.
+- Dark mode support through NativeWind's dark: prefix
+- Custom themes using Tailwind CSS configuration
+- Platform-specific styling using NativeWind variants
 
 ## Security
 
@@ -186,4 +192,51 @@ Follow coding standards and use pre-commit hooks for maintaining code quality.
 ### Husky
 Run scripts before commits, pushes, or other Git actions
 Prevent bad commits or pushes that might break your codebase
+
+## Project Structure
+
+### Key Directories
+
+#### `/src`
+Contains all source code for the application, organized by feature and responsibility.
+
+#### `/src/app`
+Uses Expo Router file-based routing system. Each file represents a route in the application.
+
+#### `/src/components`
+Reusable components separated into UI components and shared components used across multiple screens.
+
+#### `/src/context`
+React Context providers for global state management like authentication and theming.
+
+#### `/src/hooks`
+Custom React hooks for shared logic across components.
+
+#### `/src/services`
+External service integrations like Firebase, analytics, and API clients.
+
+#### `/src/styles`
+Style-related files including global styles and Tailwind CSS configuration.
+
+#### `/src/types`
+TypeScript type definitions shared across the application.
+
+#### `/src/utils`
+Utility functions and helpers used throughout the application.
+
+#### `/src/assets`
+Static assets including images, icons, and custom fonts.
+
+### Configuration Files
+
+- `app.json`: Static Expo configuration
+- `app.config.ts`: Dynamic Expo configuration with environment variables
+- `babel.config.js`: Babel transpiler configuration
+- `tailwind.config.js`: Tailwind CSS configuration
+- `tsconfig.json`: TypeScript compiler configuration
+- `.env`: Environment variables
+- `.eslintrc.json`: ESLint rules and configuration
+- `.prettierrc.json`: Code formatting rules
+- `.gitignore`: Git ignore patterns
+- `package.json`: Project dependencies and scripts
 

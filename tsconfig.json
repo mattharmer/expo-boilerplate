@@ -13,7 +13,14 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "types": [
+      "react",
+      "react-native",
+      "jest"
+    ],
+    "allowJs": true,
+    "isolatedModules": true
   },
   "include": [
     "**/*.ts",
