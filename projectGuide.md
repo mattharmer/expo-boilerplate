@@ -189,10 +189,6 @@ Configured for navigation across platforms.
 ### Best Practices
 Follow coding standards and use pre-commit hooks for maintaining code quality.
 
-### Husky
-Run scripts before commits, pushes, or other Git actions
-Prevent bad commits or pushes that might break your codebase
-
 ## Project Structure
 
 ### Key Directories
