@@ -27,7 +27,7 @@ export default function Login() {
       />
       <StyledTouchableOpacity
         className="bg-blue-500 rounded p-2"
-        onPress={() => signIn('', '')}
+        onPress={() => signIn()}
       >
         <StyledText className="text-white text-center">{t('auth.signIn')}</StyledText>
       </StyledTouchableOpacity>

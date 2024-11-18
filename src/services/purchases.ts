@@ -1,10 +1,10 @@
-import Purchases, { PurchasesConfiguration } from 'react-native-purchases';
+import Purchases, { type PurchasesConfiguration } from 'react-native-purchases';
 import Constants from 'expo-constants';
 
 export async function initializePurchases() {
-  const configuration = new PurchasesConfiguration(
-    Constants.expoConfig?.extra?.revenueCatApiKey ?? ''
-  );
+  const configuration: PurchasesConfiguration = {
+    apiKey: Constants.expoConfig?.extra?.revenueCatApiKey ?? ''
+  };
   Purchases.configure(configuration);
 }
 

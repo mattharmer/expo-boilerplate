@@ -1,5 +1,7 @@
 # Dependencies
 node_modules/
+.pnp/
+.pnp.js
 
 # Expo
 .expo/
@@ -27,3 +29,11 @@ install.log
 .vscode/
 *.swp
 *.swo 
+
+# Package management
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Keep app icons
+!src/assets/images/*.png

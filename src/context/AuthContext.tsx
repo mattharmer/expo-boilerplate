@@ -9,7 +9,7 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 interface AuthProviderProps {
-  children: ReactNode | ((props: { isAuthenticated: boolean }) => ReactNode);
+  children: React.ReactNode;
 }
 
 export function AuthProvider({ children }: AuthProviderProps) {

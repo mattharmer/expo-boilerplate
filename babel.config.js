@@ -3,8 +3,8 @@ module.exports = function (api) {
   return {
     presets: ['babel-preset-expo'],
     plugins: [
-      'expo-router/babel',
       'nativewind/babel',
+      'expo-router/babel',
       [
         'module-resolver',
         {
@@ -15,6 +15,13 @@ module.exports = function (api) {
         },
       ],
       'react-native-reanimated/plugin',
+      '@babel/plugin-transform-optional-catch-binding',
+      '@babel/plugin-transform-numeric-separator',
+      '@babel/plugin-transform-nullish-coalescing-operator',
+      '@babel/plugin-transform-class-properties',
+      '@babel/plugin-transform-optional-chaining',
+      '@babel/plugin-transform-async-generator-functions',
+      '@babel/plugin-transform-object-rest-spread'
     ],
   };
 }; 

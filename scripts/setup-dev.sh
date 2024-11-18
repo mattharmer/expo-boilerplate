@@ -51,41 +51,67 @@ if [ ! -f ".env" ] && [ -f ".env.example" ]; then
     print_blue "Created .env from .env.example"
 fi
 
-# Install all dependencies from package.json
+# Load environment variables before expo commands
+print_blue "Loading environment variables..."
+if [ -f ".env" ]; then
+    set -a
+    source .env
+    set +a
+fi
+
+# Add default values if not set
+export APP_ENV=${APP_ENV:-development}
+export API_URL=${API_URL:-http://localhost:3000}
+
+# Install dependencies
 print_blue "Installing dependencies..."
-npm install --progress --loglevel verbose
 
-# Generate package-lock.json if it doesn't exist
-if [ ! -f "package-lock.json" ]; then
-    print_blue "Generating package-lock.json..."
-    npm install --package-lock-only
-fi
-
-# Run npm audit fix with force to address all issues
+# Remove package-lock.json if it exists to ensure clean install
 if [ -f "package-lock.json" ]; then
-    print_blue "Fixing vulnerabilities..."
-    npm audit fix
-
-    print_blue "Checking for remaining vulnerabilities..."
-    npm audit || true  # Continue even if vulnerabilities remain
-    
-    if [ $? -ne 0 ]; then
-        print_red "Warning: Some vulnerabilities could not be fixed automatically."
-        print_blue "Please review npm audit output and fix manually if needed."
-    fi
+    print_blue "Removing existing package-lock.json..."
+    rm package-lock.json
 fi
+
+# Before installing dependencies, add these lines after removing package-lock.json
+print_blue "Cleaning npm cache..."
+npm cache clean --force
+
+# Update the install command
+print_blue "Installing dependencies..."
+npm install --no-package-lock --progress --loglevel verbose --omit=optional
 
 # Generate types
 print_blue "Generating types..."
 mkdir -p .expo/types
 npx expo-env-info
 
-# Update tsconfig.json with Expo Router types
+# Copy tsconfig template
 print_blue "Updating TypeScript configuration..."
-npx expo customize --force tsconfig.json
+cp scripts/tsconfig.template.json tsconfig.json
 
-# Run TypeScript check using local installation
-print_blue "Running TypeScript check..."
-npx tsc --noEmit
+# Create and update expo-env.d.ts
+print_blue "Generating type definitions..."
+cat > expo-env.d.ts << EOL
+/// <reference types="expo/types"/>
+/// <reference types="nativewind/types"/>
 
-print_green "Development environment setup complete!" 
+// Add any custom type definitions here
+declare module '*.svg' {
+  import { SvgProps } from 'react-native-svg';
+  const content: React.FC<SvgProps>;
+  export default content;
+}
+EOL
+
+if [ -f "package-lock.json" ]; then
+    print_blue "Fixing vulnerabilities..."
+    npm audit fix || true  # Continue even if audit fix fails
+    
+    print_blue "Checking for remaining vulnerabilities..."
+    npm audit || true  # Continue even if vulnerabilities remain
+    
+    print_blue "Note: Low severity vulnerabilities can be addressed later if needed."
+fi
+
+print_green "Development environment setup complete!"
+print_blue "Run 'npm run ts:check' to verify TypeScript setup" 

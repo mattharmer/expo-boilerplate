@@ -4,6 +4,8 @@ Develop and test the boilerplate using setup-dev.sh
 chmod +x scripts/setup-dev.sh
 # From the root of your boilerplate project
 npm run setup
+Then run
+npm run ts:check
 
 Once the boilerplate is ready, use create-project.sh to create new projects from it
 ./create-project.sh test-expo-app
@@ -28,4 +30,10 @@ After running users need to:
    - Set up CI/CD with EAS
    - Configure deep linking
 
-   npx expo start --lan -c
+
+package.json contains the following scripts:
+npm run start - Normal start with LAN access
+npm run start:clear - Start with cleared cache (your previous command)
+npm run android - Start for Android with LAN access
+npm run ios - Start for iOS with LAN access
+npm run web - Start for web

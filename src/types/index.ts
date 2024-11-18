@@ -19,13 +19,12 @@ export interface Theme {
 
 export * from './navigation';
 export * from './theme';
-export * from './env';
 
 // Add missing React types
 declare global {
   namespace React {
     interface ErrorInfo {
-      componentStack: string;
+      componentStack?: string | null;
     }
   }
 } 

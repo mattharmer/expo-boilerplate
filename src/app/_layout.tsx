@@ -2,7 +2,6 @@ import { Stack } from 'expo-router';
 import { useFonts } from 'expo-font';
 import { useEffect } from 'react';
 import * as Linking from 'expo-linking';
-import { LogBox } from 'react-native';
 import { ThemeProvider } from '../context/ThemeContext';
 import { AuthProvider } from '../context/AuthContext';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -15,7 +14,7 @@ const handleDeepLink = (event: { url: string }) => {
   // Add your deep linking logic here
 };
 
-export default function RootLayout() {
+export default function Layout() {
   const [loaded] = useFonts({
     // Add your custom fonts here
   });
@@ -34,9 +33,9 @@ export default function RootLayout() {
       },
     };
 
-    Linking.addEventListener('url', handleDeepLink);
+    const subscription = Linking.addEventListener('url', handleDeepLink);
     return () => {
-      Linking.removeEventListener('url', handleDeepLink);
+      subscription.remove();
     };
   }, []);
 
@@ -45,15 +44,9 @@ export default function RootLayout() {
   return (
     <SafeAreaProvider>
       <ThemeProvider>
-        {(props) => (
-          <AuthProvider>
-            {(authProps) => (
-              <Stack screenOptions={{ headerShown: false }}>
-                {authProps.children}
-              </Stack>
-            )}
-          </AuthProvider>
-        )}
+        <AuthProvider>
+          <Stack screenOptions={{ headerShown: false }} />
+        </AuthProvider>
       </ThemeProvider>
     </SafeAreaProvider>
   );
