@@ -26,7 +26,6 @@ Authentication
 - Cloud Messaging (FCM)
 - Analytics
 - Offline Persistence
-Tailwind CSS: For Web Styling.
 - Jest: For Unit Tests
 - RevenueCat: For In-App Purchases and Subscriptions
 - Internationalization: i18next or react-i18next

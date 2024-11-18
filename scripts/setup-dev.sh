@@ -63,22 +63,18 @@ fi
 export APP_ENV=${APP_ENV:-development}
 export API_URL=${API_URL:-http://localhost:3000}
 
-# Install dependencies
+# Clean installation
+print_blue "Cleaning previous installation..."
+rm -rf node_modules
+rm -rf .expo
+rm -rf dist
+rm -rf web-build
+rm -f package-lock.json  # Remove old package-lock.json
+
+# Fresh install to generate new package-lock.json
 print_blue "Installing dependencies..."
-
-# Remove package-lock.json if it exists to ensure clean install
-if [ -f "package-lock.json" ]; then
-    print_blue "Removing existing package-lock.json..."
-    rm package-lock.json
-fi
-
-# Before installing dependencies, add these lines after removing package-lock.json
-print_blue "Cleaning npm cache..."
-npm cache clean --force
-
-# Update the install command
-print_blue "Installing dependencies..."
-npm install --no-package-lock --progress --loglevel verbose --omit=optional
+npm cache clean --force  # Clean npm cache
+npm install --progress --loglevel verbose  # This will generate a new package-lock.json
 
 # Generate types
 print_blue "Generating types..."
@@ -103,15 +99,13 @@ declare module '*.svg' {
 }
 EOL
 
-if [ -f "package-lock.json" ]; then
-    print_blue "Fixing vulnerabilities..."
-    npm audit fix || true  # Continue even if audit fix fails
-    
-    print_blue "Checking for remaining vulnerabilities..."
-    npm audit || true  # Continue even if vulnerabilities remain
-    
-    print_blue "Note: Low severity vulnerabilities can be addressed later if needed."
-fi
+# Check for vulnerabilities in new package-lock.json
+print_blue "Checking for vulnerabilities in fresh install..."
+npm audit || true  # Show vulnerabilities but continue
+
+print_blue "Attempting to fix vulnerabilities..."
+npm audit fix || true  # Continue even if fix fails
 
 print_green "Development environment setup complete!"
 print_blue "Run 'npm run ts:check' to verify TypeScript setup" 
+print_blue "Run 'npm run start:clear' to start the development server"

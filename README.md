@@ -1,16 +1,18 @@
 ## BoilerPlate Installation
 
-Develop and test the boilerplate using setup-dev.sh
+# Develop and test the boilerplate using setup-dev.sh
 chmod +x scripts/setup-dev.sh
 # From the root of your boilerplate project
 npm run setup
 Then run
 npm run ts:check
+Then run
+npm run start:clear
 
-Once the boilerplate is ready, use create-project.sh to create new projects from it
-./create-project.sh test-expo-app
+# Once the boilerplate is ready, use create-project.sh to create new projects from it
+./create-project.sh
 
-After running users need to:
+# After running users need to:
 
 1. Configure Firebase:
    - Create a Firebase project
@@ -31,7 +33,7 @@ After running users need to:
    - Configure deep linking
 
 
-package.json contains the following scripts:
+# package.json contains the following scripts:
 npm run start - Normal start with LAN access
 npm run start:clear - Start with cleared cache (your previous command)
 npm run android - Start for Android with LAN access

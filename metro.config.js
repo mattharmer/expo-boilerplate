@@ -1,14 +1,201 @@
 const { getDefaultConfig } = require('@expo/metro-config');
+const path = require('path');
 
-const config = getDefaultConfig(__dirname);
+const config = getDefaultConfig(__dirname, {
+  isCSSEnabled: true,
+});
 
-// Add necessary extensions and asset plugins
-config.resolver.sourceExts = ['jsx', 'js', 'ts', 'tsx', 'json'];
-config.transformer.assetPlugins = ['expo-asset/tools/hashAssetFiles'];
+// Ensure proper web support
+config.resolver.sourceExts = [
+  'web.tsx',
+  'tsx',
+  'web.ts',
+  'ts',
+  'web.jsx',
+  'jsx',
+  'web.js',
+  'js',
+  'json',
+  'cjs',
+  'mjs'
+];
 
-// Remove any expo-router/babel references if present
-if (config.transformer.babelTransformerPath) {
-  delete config.transformer.babelTransformerPath;
-}
+// Add platform-specific extensions
+config.resolver.platforms = ['web', 'ios', 'android'];
+
+// Asset Extensions
+config.resolver.assetExts = [
+  ...config.resolver.assetExts,
+  'db',
+  'sqlite',
+  'png',
+  'jpg',
+  'ttf',
+  'otf'
+];
+
+// Enable symlinks for monorepo support
+config.resolver.disableHierarchicalLookup = true;
+config.resolver.nodeModulesPaths = ['node_modules'];
+
+// Add specific module resolutions
+config.resolver.extraNodeModules = {
+  ...config.resolver.extraNodeModules,
+  'react': path.resolve(__dirname, 'node_modules/react'),
+  'react-dom': path.resolve(__dirname, 'node_modules/react-dom'),
+  'react/jsx-dev-runtime': path.resolve(__dirname, 'node_modules/react/jsx-dev-runtime'),
+  'react/jsx-runtime': path.resolve(__dirname, 'node_modules/react/jsx-runtime'),
+  'expo-router': path.resolve(__dirname, 'node_modules/expo-router'),
+  '@expo/metro-runtime': path.resolve(__dirname, 'node_modules/@expo/metro-runtime'),
+  'expo': path.resolve(__dirname, 'node_modules/expo'),
+  'expo-splash-screen': path.resolve(__dirname, 'node_modules/expo-splash-screen'),
+  'expo-constants': path.resolve(__dirname, 'node_modules/expo-constants'),
+  'expo-modules-core': path.resolve(__dirname, 'node_modules/expo-modules-core'),
+  'expo-font': path.resolve(__dirname, 'node_modules/expo-font'),
+  'expo-font/build/server': path.resolve(__dirname, 'node_modules/expo-font/build/server'),
+  'expo-status-bar': path.resolve(__dirname, 'node_modules/expo-status-bar'),
+  '@react-navigation/native': path.resolve(__dirname, 'node_modules/@react-navigation/native'),
+  '@react-navigation/core': path.resolve(__dirname, 'node_modules/@react-navigation/core'),
+  'react-native-web': path.resolve(__dirname, 'node_modules/react-native-web'),
+  '@react-native/normalize-colors': path.resolve(__dirname, 'node_modules/@react-native/normalize-colors'),
+  'debug': path.resolve(__dirname, 'node_modules/debug'),
+  'react-native-safe-area-context': path.resolve(__dirname, 'node_modules/react-native-safe-area-context'),
+  'fbjs': path.resolve(__dirname, 'node_modules/fbjs'),
+  'fbjs/lib/invariant': path.resolve(__dirname, 'node_modules/fbjs/lib/invariant'),
+  '@babel/runtime': path.resolve(__dirname, 'node_modules/@babel/runtime'),
+  '@babel/runtime/helpers': path.resolve(__dirname, 'node_modules/@babel/runtime/helpers'),
+  '@babel/runtime/helpers/defineProperty': path.resolve(__dirname, 'node_modules/@babel/runtime/helpers/defineProperty'),
+  '@babel/runtime/helpers/interopRequireDefault': path.resolve(__dirname, 'node_modules/@babel/runtime/helpers/interopRequireDefault'),
+  '@babel/runtime/helpers/interopRequireWildcard': path.resolve(__dirname, 'node_modules/@babel/runtime/helpers/interopRequireWildcard'),
+  'react-refresh': path.resolve(__dirname, 'node_modules/react-refresh'),
+  'react-refresh/runtime': path.resolve(__dirname, 'node_modules/react-refresh/runtime'),
+  'styleq': path.resolve(__dirname, 'node_modules/styleq'),
+  'styleq/transform-localize-style': path.resolve(__dirname, 'node_modules/styleq/transform-localize-style'),
+  'react-helmet-async': path.resolve(__dirname, 'node_modules/react-helmet-async'),
+  'stacktrace-parser': path.resolve(__dirname, 'node_modules/stacktrace-parser'),
+  'fontfaceobserver': path.resolve(__dirname, 'node_modules/fontfaceobserver'),
+  'pretty-format': path.resolve(__dirname, 'node_modules/pretty-format'),
+  'anser': path.resolve(__dirname, 'node_modules/anser'),
+  'stacktrace-parser': path.resolve(__dirname, 'node_modules/stacktrace-parser'),
+  '@react-navigation/core': path.resolve(__dirname, 'node_modules/@react-navigation/core'),
+  'react-error-boundary': path.resolve(__dirname, 'node_modules/react-error-boundary'),
+  'react-error-overlay': path.resolve(__dirname, 'node_modules/react-error-overlay'),
+  'react-dev-utils': path.resolve(__dirname, 'node_modules/react-dev-utils'),
+  'source-map': path.resolve(__dirname, 'node_modules/source-map'),
+  '@react-navigation/routers': path.resolve(__dirname, 'node_modules/@react-navigation/routers'),
+  'metro-runtime': path.resolve(__dirname, 'node_modules/metro-runtime'),
+  'metro-runtime/src/modules/HMRClient': path.resolve(__dirname, 'node_modules/metro-runtime/src/modules/HMRClient'),
+  'react-native/Libraries/Image/AssetRegistry': path.resolve(__dirname, 'src/mocks/AssetRegistry'),
+  '@react-native/assets/registry': path.resolve(__dirname, 'src/mocks/AssetRegistry'),
+  '@react-native/assets-registry': path.resolve(__dirname, 'src/mocks/AssetRegistry'),
+  '@react-native/assets-registry/registry': path.resolve(__dirname, 'src/mocks/AssetRegistry'),
+  'expo-asset': path.resolve(__dirname, 'node_modules/expo-asset'),
+  'prop-types': path.resolve(__dirname, 'node_modules/prop-types'),
+  '@expo/vector-icons': path.resolve(__dirname, 'node_modules/@expo/vector-icons'),
+  'expo-modules-core/build/server': path.resolve(__dirname, 'node_modules/expo-modules-core/build/server'),
+  'expo-linking': path.resolve(__dirname, 'node_modules/expo-linking'),
+  'expo-linking/build/ExpoLinking': path.resolve(__dirname, 'node_modules/expo-linking/build/ExpoLinking'),
+  'react-fast-compare': path.resolve(__dirname, 'node_modules/react-fast-compare'),
+  'fast-deep-equal': path.resolve(__dirname, 'node_modules/fast-deep-equal'),
+  'invariant': path.resolve(__dirname, 'node_modules/invariant'),
+  'query-string': path.resolve(__dirname, 'node_modules/query-string'),
+  'postcss-value-parser': path.resolve(__dirname, 'node_modules/postcss-value-parser'),
+  'escape-string-regexp': path.resolve(__dirname, 'node_modules/escape-string-regexp'),
+  'shallowequal': path.resolve(__dirname, 'node_modules/shallowequal'),
+  'nanoid': path.resolve(__dirname, 'node_modules/nanoid'),
+  'nanoid/non-secure': path.resolve(__dirname, 'node_modules/nanoid/non-secure'),
+  'use-latest-callback': path.resolve(__dirname, 'node_modules/use-latest-callback'),
+  'ansi-styles': path.resolve(__dirname, 'node_modules/ansi-styles'),
+  'react-is': path.resolve(__dirname, 'node_modules/react-is'),
+  'memoize-one': path.resolve(__dirname, 'node_modules/memoize-one'),
+  'nullthrows': path.resolve(__dirname, 'node_modules/nullthrows'),
+  '@radix-ui/react-slot': path.resolve(__dirname, 'node_modules/@radix-ui/react-slot'),
+  '@react-navigation/bottom-tabs': path.resolve(__dirname, 'node_modules/@react-navigation/bottom-tabs'),
+  'inline-style-prefixer': path.resolve(__dirname, 'node_modules/inline-style-prefixer'),
+  'inline-style-prefixer/lib/createPrefixer': path.resolve(__dirname, 'node_modules/inline-style-prefixer/lib/createPrefixer'),
+  'scheduler': path.resolve(__dirname, 'node_modules/scheduler'),
+  'scheduler/tracing': path.resolve(__dirname, 'node_modules/scheduler/tracing'),
+  '@radix-ui/react-compose-refs': path.resolve(__dirname, 'node_modules/@radix-ui/react-compose-refs')
+};
+
+// Add aliases for React runtime and other critical modules
+config.resolver.alias = {
+  ...config.resolver.alias,
+  'react': path.resolve(__dirname, 'node_modules/react'),
+  'react-dom': path.resolve(__dirname, 'node_modules/react-dom'),
+  'react/jsx-dev-runtime': path.resolve(__dirname, 'node_modules/react/jsx-dev-runtime'),
+  'react/jsx-runtime': path.resolve(__dirname, 'node_modules/react/jsx-runtime'),
+  'react-native-web': path.resolve(__dirname, 'node_modules/react-native-web'),
+  'react-native-web/dist/index': path.resolve(__dirname, 'node_modules/react-native-web/dist/index'),
+  '@react-navigation/native': path.resolve(__dirname, 'node_modules/@react-navigation/native'),
+  '@react-navigation/core': path.resolve(__dirname, 'node_modules/@react-navigation/core'),
+  'expo-modules-core': path.resolve(__dirname, 'node_modules/expo-modules-core'),
+  'expo-constants': path.resolve(__dirname, 'node_modules/expo-constants'),
+  'expo-font': path.resolve(__dirname, 'node_modules/expo-font'),
+  'expo-font/build/server': path.resolve(__dirname, 'node_modules/expo-font/build/server'),
+  'expo-status-bar': path.resolve(__dirname, 'node_modules/expo-status-bar'),
+  '@react-native/normalize-colors': path.resolve(__dirname, 'node_modules/@react-native/normalize-colors'),
+  'debug': path.resolve(__dirname, 'node_modules/debug'),
+  'react-native-safe-area-context': path.resolve(__dirname, 'node_modules/react-native-safe-area-context'),
+  'fbjs': path.resolve(__dirname, 'node_modules/fbjs'),
+  'fbjs/lib/invariant': path.resolve(__dirname, 'node_modules/fbjs/lib/invariant'),
+  '@babel/runtime': path.resolve(__dirname, 'node_modules/@babel/runtime'),
+  '@babel/runtime/helpers': path.resolve(__dirname, 'node_modules/@babel/runtime/helpers'),
+  '@babel/runtime/helpers/defineProperty': path.resolve(__dirname, 'node_modules/@babel/runtime/helpers/defineProperty'),
+  '@babel/runtime/helpers/interopRequireDefault': path.resolve(__dirname, 'node_modules/@babel/runtime/helpers/interopRequireDefault'),
+  '@babel/runtime/helpers/interopRequireWildcard': path.resolve(__dirname, 'node_modules/@babel/runtime/helpers/interopRequireWildcard'),
+  'react-refresh': path.resolve(__dirname, 'node_modules/react-refresh'),
+  'react-refresh/runtime': path.resolve(__dirname, 'node_modules/react-refresh/runtime'),
+  'styleq': path.resolve(__dirname, 'node_modules/styleq'),
+  'styleq/transform-localize-style': path.resolve(__dirname, 'node_modules/styleq/transform-localize-style'),
+  'react-helmet-async': path.resolve(__dirname, 'node_modules/react-helmet-async'),
+  'stacktrace-parser': path.resolve(__dirname, 'node_modules/stacktrace-parser'),
+  'fontfaceobserver': path.resolve(__dirname, 'node_modules/fontfaceobserver'),
+  'pretty-format': path.resolve(__dirname, 'node_modules/pretty-format'),
+  'anser': path.resolve(__dirname, 'node_modules/anser'),
+  'stacktrace-parser': path.resolve(__dirname, 'node_modules/stacktrace-parser'),
+  '@react-navigation/core': path.resolve(__dirname, 'node_modules/@react-navigation/core'),
+  'react-error-boundary': path.resolve(__dirname, 'node_modules/react-error-boundary'),
+  'react-error-overlay': path.resolve(__dirname, 'node_modules/react-error-overlay'),
+  'react-dev-utils': path.resolve(__dirname, 'node_modules/react-dev-utils'),
+  'source-map': path.resolve(__dirname, 'node_modules/source-map'),
+  '@react-navigation/routers': path.resolve(__dirname, 'node_modules/@react-navigation/routers'),
+  'metro-runtime': path.resolve(__dirname, 'node_modules/metro-runtime'),
+  'metro-runtime/src/modules/HMRClient': path.resolve(__dirname, 'node_modules/metro-runtime/src/modules/HMRClient'),
+  'react-native/Libraries/Image/AssetRegistry': path.resolve(__dirname, 'src/mocks/AssetRegistry'),
+  '@react-native/assets/registry': path.resolve(__dirname, 'src/mocks/AssetRegistry'),
+  '@react-native/assets-registry': path.resolve(__dirname, 'src/mocks/AssetRegistry'),
+  '@react-native/assets-registry/registry': path.resolve(__dirname, 'src/mocks/AssetRegistry'),
+  'expo-asset': path.resolve(__dirname, 'node_modules/expo-asset'),
+  'prop-types': path.resolve(__dirname, 'node_modules/prop-types'),
+  '@expo/vector-icons': path.resolve(__dirname, 'node_modules/@expo/vector-icons'),
+  'expo-modules-core/build/server': path.resolve(__dirname, 'node_modules/expo-modules-core/build/server'),
+  'expo-linking': path.resolve(__dirname, 'node_modules/expo-linking'),
+  'expo-linking/build/ExpoLinking': path.resolve(__dirname, 'node_modules/expo-linking/build/ExpoLinking'),
+  'react-fast-compare': path.resolve(__dirname, 'node_modules/react-fast-compare'),
+  'fast-deep-equal': path.resolve(__dirname, 'node_modules/fast-deep-equal'),
+  'invariant': path.resolve(__dirname, 'node_modules/invariant'),
+  'query-string': path.resolve(__dirname, 'node_modules/query-string'),
+  'postcss-value-parser': path.resolve(__dirname, 'node_modules/postcss-value-parser'),
+  'escape-string-regexp': path.resolve(__dirname, 'node_modules/escape-string-regexp'),
+  'shallowequal': path.resolve(__dirname, 'node_modules/shallowequal'),
+  'nanoid': path.resolve(__dirname, 'node_modules/nanoid'),
+  'nanoid/non-secure': path.resolve(__dirname, 'node_modules/nanoid/non-secure'),
+  'use-latest-callback': path.resolve(__dirname, 'node_modules/use-latest-callback'),
+  'ansi-styles': path.resolve(__dirname, 'node_modules/ansi-styles'),
+  'react-is': path.resolve(__dirname, 'node_modules/react-is'),
+  'memoize-one': path.resolve(__dirname, 'node_modules/memoize-one'),
+  'nullthrows': path.resolve(__dirname, 'node_modules/nullthrows'),
+  '@radix-ui/react-slot': path.resolve(__dirname, 'node_modules/@radix-ui/react-slot'),
+  '@react-navigation/bottom-tabs': path.resolve(__dirname, 'node_modules/@react-navigation/bottom-tabs'),
+  'inline-style-prefixer': path.resolve(__dirname, 'node_modules/inline-style-prefixer'),
+  'inline-style-prefixer/lib/createPrefixer': path.resolve(__dirname, 'node_modules/inline-style-prefixer/lib/createPrefixer'),
+  'scheduler': path.resolve(__dirname, 'node_modules/scheduler'),
+  'scheduler/tracing': path.resolve(__dirname, 'node_modules/scheduler/tracing'),
+  '@radix-ui/react-compose-refs': path.resolve(__dirname, 'node_modules/@radix-ui/react-compose-refs')
+};
+
+// Ensure proper module resolution
+config.resolver.resolverMainFields = ['browser', 'main', 'module'];
 
 module.exports = config; 
