@@ -1,41 +1,32 @@
-## BoilerPlate Installation
+# Expo boilerplate
 
-# Develop and test the boilerplate using setup-dev.sh
+A 2024 starter for Expo (React Native) apps with a web target, TypeScript and Firebase. It includes a dev setup script and `create-project.sh` for spinning up a new app from this template.
+
+This is a personal boilerplate, not an app in the stores.
+
+## Develop the boilerplate
+
+```bash
 chmod +x scripts/setup-dev.sh
-# From the root of your boilerplate project
 npm run setup
-Then run
 npm run ts:check
-Then run
 npm run start:clear
+```
 
-# Once the boilerplate is ready, use create-project.sh to create new projects from it
+## Create a new project from it
+
+```bash
 ./create-project.sh
+```
 
-# After running users need to:
+Then, in the new project:
 
-1. Configure Firebase:
-   - Create a Firebase project
-   - Add the Firebase config to .env file
-   - Enable Authentication and Firestore in Firebase Console
+1. Create a Firebase project, add the config to a local `.env` (see `.env.example`; do not commit `.env`), and enable Authentication and Firestore.
+2. Update `app.json` / `app.config.ts` with the app name, bundle identifier, version, icons and splash screens.
+3. Optionally set up Sentry, RevenueCat, EAS CI/CD and deep linking.
 
-2. Configure environment variables in .env:
-   - Update app.json/app.config.ts with their app-specific details:
-     - App name
-     - Bundle identifier
-     - Version numbers
-     - Icons and splash screens
+## Scripts
 
-3. Optional configurations:
-   - Set up Sentry for error tracking
-   - Configure RevenueCat for in-app purchases
-   - Set up CI/CD with EAS
-   - Configure deep linking
-
-
-# package.json contains the following scripts:
-npm run start - Normal start with LAN access
-npm run start:clear - Start with cleared cache (your previous command)
-npm run android - Start for Android with LAN access
-npm run ios - Start for iOS with LAN access
-npm run web - Start for web
+- `npm run start` — start with LAN access
+- `npm run start:clear` — start with a cleared cache
+- `npm run android` / `npm run ios` / `npm run web` — platform targets
